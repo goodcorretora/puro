@@ -29,11 +29,6 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Configurar redirecionamento após login/registro
-        Fortify::authenticateUsing(function (Request $request) {
-            return null; // Retorna null para usar autenticação padrão
-        });
-
         Fortify::registerView(function () {
             return view('auth.register');
         });
