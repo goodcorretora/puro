@@ -35,7 +35,7 @@ class SaudeController extends Controller
         // Send mail to admin
         Mail::send('emails.saude', $validated, function ($message) use ($validated) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject('Solicitação de Plano de Saúde - ' . ($validated['name'] ?? 'Novo contato'));
         });
 

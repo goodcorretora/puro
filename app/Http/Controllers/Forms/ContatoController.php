@@ -46,7 +46,7 @@ class ContatoController extends Controller
             'mensagem' => $validated['message'],
         ], function ($mail) use ($validated) {
             $mail->to('contato@goodcorretora.com.br', 'Contato')
-                 ->cc('goodcorretora@gmail.com', 'Contato')
+                 ->cc('test@sfn.com.br', 'Contato')
                  ->subject($validated['subject']);
         });
 

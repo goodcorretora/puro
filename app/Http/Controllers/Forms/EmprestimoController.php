@@ -50,7 +50,7 @@ class EmprestimoController extends Controller
         // Send mail to admin
         Mail::send('emails.emprestimo', $validated, function ($message) use ($validated) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject('Solicitação de Empréstimo - ' . ($validated['name'] ?? 'Novo contato'));
         });
 

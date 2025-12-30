@@ -29,7 +29,7 @@ class DocumentoController extends Controller
         // Send mail to admin
         Mail::send('emails.documento', $validated, function ($message) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject($validated['name'] ?? 'Novo contato');
         });
 

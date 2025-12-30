@@ -40,7 +40,7 @@ public function store(Request $request): RedirectResponse
         // Send mail to admin
         Mail::send('emails.consorcio', ['consorcio' => $consorcio] + $validated, function ($message) use ($validated) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject($validated['name'] ?? 'Novo contato');
         });
 

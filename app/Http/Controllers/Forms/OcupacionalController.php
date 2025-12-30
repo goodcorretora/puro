@@ -82,7 +82,7 @@ class OcupacionalController extends Controller
         // Send mail to admin
         Mail::send('emails.ocupacional', ['ocupacional' => $ocupacional] + $validated, function ($message) use ($validated) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject('Solicitação de Saúde Ocupacional - ' . ($validated['name'] ?? 'Novo contato'));
         });
 

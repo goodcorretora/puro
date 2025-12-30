@@ -13,6 +13,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -21,7 +23,28 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Redirecionar após registro para verificação de email
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                // O Fortify já autentica o usuário após o registro
+                // Basta redirecionar para a página de verificação com uma mensagem
+                return redirect()->route('verification.notice')
+                    ->with('status', 'Cadastro realizado com sucesso! Por favor, verifique seu e-mail para ativar sua conta.');
+            }
+        });
+
+        // Redirecionar após login para verificação de email se não verificado
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                if ($request->user() && ! $request->user()->hasVerifiedEmail()) {
+                    return redirect()->route('verification.notice');
+                }
+                
+                return redirect()->intended(config('fortify.home'));
+            }
+        });
     }
 
     /**

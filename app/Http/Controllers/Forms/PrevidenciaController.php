@@ -36,7 +36,7 @@ public function store(Request $request): RedirectResponse
         // Send mail to admin
         Mail::send('emails.previdencia', $validated, function ($message) use ($validated) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject('Solicitação de Previdência - ' . ($validated['name'] ?? 'Novo contato'));
         });
 

@@ -55,7 +55,7 @@ class AutoController extends Controller
         // Send mail to admin
         Mail::send('emails.auto', $validated, function ($message) use ($validated) {
             $message->to('contato@goodcorretora.com.br', 'Solicitar Informações')
-                    ->to('goodcorretora@gmail.com', 'Solicitar Informações')
+                    ->to('test@sfn.com.br', 'Solicitar Informações')
                     ->subject('Solicitação de Seguro Auto - ' . ($validated['name'] ?? 'Novo contato'));
         });
 

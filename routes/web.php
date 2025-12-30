@@ -23,6 +23,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
+use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
 use Laravel\Fortify\Http\Controllers\ConfirmablePasswordController;
 
 
@@ -45,7 +46,20 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])-
 Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 
 // Email verify / confirm password etc.
-Route::get('/email/verify', [VerifyEmailController::class, '__invoke'])->name('verification.notice');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})
+    ->middleware('auth')
+    ->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->name('verification.verify');
+
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');
+
 Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])->name('password.confirm');
 Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']);
 
